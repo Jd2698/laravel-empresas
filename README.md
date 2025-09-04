@@ -10,11 +10,23 @@ Pruebas técnica que tienen como objetivo crear un web service para gestionar Em
     composer install
     ```
 
+2. **Crear el archivo .env**:
 
-2. **Ejecuta las migraciones para crear las tablas en la base de datos**:
+    ```bash
+    cp .env.example .env
+    ```
+
+
+3. **Ejecuta las migraciones para crear las tablas en la base de datos**:
 
     ```bash
     php artisan migrate
+    ```
+
+4. **Ejecuta la aplicación**:
+
+    ```bash
+    php artisan serve
     ```
 
 ## Ejecutar pruebas
