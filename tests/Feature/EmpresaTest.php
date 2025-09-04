@@ -99,13 +99,24 @@ class EmpresaTest extends TestCase
         $data = [];
 
         $response = $this->postJson('/api/empresas', $data);
-        $response->assertStatus(400);
+        $response->assertStatus(422);
 
-        $response->assertJsonValidationErrors([
-            'nombre',
-            'nit',
-            'direccion',
-            'telefono',
+        $response->assertJson([
+            "error" => "Validation Error",
+            "message" => [
+                "nombre" => [
+                    "The nombre field is required."
+                ],
+                "nit" => [
+                    "The nit field is required."
+                ],
+                "direccion" => [
+                    "The direccion field is required."
+                ],
+                "telefono" => [
+                    "The telefono field is required."
+                ]
+            ]
         ]);
     }
 
@@ -127,16 +138,15 @@ class EmpresaTest extends TestCase
         ];
 
         $response = $this->postJson('/api/empresas', $data);
-        $response->assertStatus(400);
+        $response->assertStatus(422);
 
-        $response->assertJsonValidationErrors('nit');
-
-        $response->assertJson([
-            'errors' => [
-                'nit' => [
-                    'The nit has already been taken.',
-                ],
-            ],
+         $response->assertJson([
+            "error" => "Validation Error",
+            "message" => [
+                "nit" => [
+                    "The nit has already been taken."
+                ]
+            ]
         ]);
     }
 
@@ -154,7 +164,7 @@ class EmpresaTest extends TestCase
             'nombre' => 'nombre actualizado'
         ];
 
-        $response = $this->putJson('/api/empresas/' .$empresa->id, $data);
+        $response = $this->patchJson('/api/empresas/' .$empresa->id, $data);
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -181,7 +191,7 @@ class EmpresaTest extends TestCase
             'nit' => '33322211122'
         ];
 
-        $response = $this->putJson('/api/empresas/' .$empresa->id, $data);
+        $response = $this->patchJson('/api/empresas/' .$empresa->id, $data);
 
         $response->assertStatus(200);
         $response->assertJson([

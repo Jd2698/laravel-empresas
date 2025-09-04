@@ -9,7 +9,7 @@ Route::prefix('empresas')->controller(EmpresaController::class)->group(function 
     Route::get('/nit/{nit}', 'showByNit');
     
     Route::post('/', 'store');
-    Route::put('/{id}', 'update');
+    Route::patch('/{id}', 'update');
     Route::delete('/inactivas', 'destroyInactive');
 });
 
