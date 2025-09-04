@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Empresa;
-use App\Http\Requests\EmpresaRequest;
 use Illuminate\Validation\Rule;
 use App\Enums\StatusEnum;
 
@@ -15,7 +14,7 @@ class EmpresaController extends Controller
     public function index()
     {
         $empresas = Empresa::all();
-		return response()->json(['empresas' => $empresas], 200);
+		return response()->json($empresas, 200);
 	}
 
     public function store(Request $request)
@@ -45,7 +44,7 @@ class EmpresaController extends Controller
 
         $empresa = new Empresa($request->all());
 		$empresa->save();
-		return response()->json(['empresa' => $empresa], 201);
+		return response()->json($empresa, 201);
     }
 
     /**
@@ -59,7 +58,7 @@ class EmpresaController extends Controller
             return response()->json(['errors' => "Empresa not found"], 404);
         }
 
-        return response()->json(['empresa' => $empresa]);
+        return response()->json($empresa, 200);
     }
 
     /**
@@ -73,7 +72,7 @@ class EmpresaController extends Controller
             return response()->json(['errors' => "Empresa not found"], 404);
         }
 
-        return response()->json(['empresa' => $empresa]);
+        return response()->json($empresa, 200);
     }
 
     public function update(Request $request, string $id)
@@ -98,7 +97,7 @@ class EmpresaController extends Controller
         }
 
         $empresa->update($data);
-        return response()->json(['empresa' => $empresa], 200);
+        return response()->json($empresa, 200);
     }
 
     /**
